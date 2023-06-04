@@ -21,17 +21,21 @@
       <hr />
       <form action="#" th:action="@{/todo}" th:object="${todoItem}" method="POST">
         <div class="form-group">
-          <label for="description">Description</label>
+          <label for="description" class="fw-semibold">Description</label>
           <input class="form-control" type="text" th:field="*{description}" id="description" placeholder="Description">
           
-          <label for="status">Status</label>
-          <select class="form-control" name="status" id="status" th:field="*{status}">
-            <option th:each="status : ${T(dev.ixale.springtodoapp.models.TaskStatus).values()}" th:value="${status}" th:text="${status.getValue()}"></option>
+          <label for="status" class="fw-semibold">Status</label>
+          <select class="form-control" name="status" id="status" th:field="*{status}"
+                  th:classappend="${todoItem.status.toString() == 'COMPLETED' ? 'text-success' : (todoItem.status.toString() == 'IN_PROGRESS' ? 'text-warning' : 'text-danger')}">
+            <option th:each="status : ${T(dev.ixale.springtodoapp.models.TaskStatus).values()}" th:value="${status}" th:text="${status.getValue()}"
+                    th:classappend="${status.toString() == 'COMPLETED' ? 'text-success' : (status.toString() == 'IN_PROGRESS' ? 'text-warning' : 'text-danger')}"></option>
           </select>
           
-          <label for="priority">Priority</label>
-          <select class="form-control" name="priority" id="priority" th:field="*{priority}">
-            <option th:each="priority : ${T(dev.ixale.springtodoapp.models.TaskPriority).values()}" th:value="${priority}" th:text="${priority.getValue()}"></option>
+          <label for="priority" class="fw-semibold">Priority</label>
+          <select class="form-control" name="priority" id="priority" th:field="*{priority}"
+                  th:classappend="${todoItem.priority.toString() == 'LOW' ? 'text-success' : (todoItem.priority.toString() == 'MEDIUM' ? 'text-warning' : 'text-danger')}">
+            <option th:each="priority : ${T(dev.ixale.springtodoapp.models.TaskPriority).values()}" th:value="${priority}" th:text="${priority.getValue()}"
+                    th:classappend="${priority.toString() == 'LOW' ? 'text-success' : (priority.toString() == 'MEDIUM' ? 'text-warning' : 'text-danger')}"></option>
           </select>
           
           <br />

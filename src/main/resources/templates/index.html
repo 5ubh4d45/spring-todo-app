@@ -27,21 +27,25 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="item : ${todoItems}">
+        <tr th:each="todoItem : ${todoItems}">
           <td>
             <div class="btn btn-group-sm" role="group">
-              <a class="btn btn-info" th:href="@{todo/edit/{id}(id=${item.id})}">
+              <a class="btn btn-info" th:href="@{todo/edit/{id}(id=${todoItem.id})}">
                 <i class="bi bi-pencil-fill"></i> Edit</a>
-              <a class="btn btn-danger" th:href="@{todo/delete/{id}(id=${item.id})}">
+              <a class="btn btn-danger" th:href="@{todo/delete/{id}(id=${todoItem.id})}">
                 <i class="bi bi-trash-fill"></i> Delete</a>
             </div>
           </td>
-<!--          <td th:text="${item.id}"></td>-->
-          <td th:text="${item.description}"></td>
-          <td th:text="${item.status.getValue()}"></td>
-          <td th:text="${item.priority.getValue()}"></td>
-          <td th:text="${#temporals.format(item.updatedAt, 'HH:mm:ss - dd/MM/yyyy')}"></td>
-          <td th:text="${#temporals.format(item.createdAt, 'HH:mm:ss - dd/MM/yyyy')}"></td>
+<!--          <td th:text="${todoItem.id}"></td>-->
+          <td th:text="${todoItem.description}"></td>
+          <td th:text="${todoItem.status.getValue()}"
+              th:classappend="${todoItem.status.toString() == 'COMPLETED' ? 'text-success' : (todoItem.status.toString() == 'IN_PROGRESS' ? 'text-warning' : 'text-danger')}">
+          </td>
+          <td th:text="${todoItem.priority.getValue()}"
+              th:classappend="${todoItem.priority.toString() == 'LOW' ? 'text-success' : (todoItem.priority.toString() == 'MEDIUM' ? 'text-warning' : 'text-danger')}">
+          </td>
+          <td th:text="${#temporals.format(todoItem.updatedAt, 'HH:mm:ss - dd/MM/yyyy')}"></td>
+          <td th:text="${#temporals.format(todoItem.createdAt, 'HH:mm:ss - dd/MM/yyyy')}"></td>
         </tr>
         </tbody>
       </table>
