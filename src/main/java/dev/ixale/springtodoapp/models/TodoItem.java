@@ -1,11 +1,13 @@
 package dev.ixale.springtodoapp.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import java.time.Instant;
 
@@ -21,12 +23,17 @@ import java.time.Instant;
 @Table(name = "todo_items")
 public class TodoItem{
     @Id
+    @Min(message = "Id must be greater than zero!", value = 1L)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @NotBlank(message = "Description is required.")
     private String description;
-    private TaskStatus status;
-    private TaskPriority priority;
+    @Enumerated(EnumType.ORDINAL)
+    @Column(nullable = false)
+    private TaskStatus status = TaskStatus.PENDING;
+    @Enumerated(EnumType.ORDINAL)
+    @Column(nullable = false)
+    private TaskPriority priority = TaskPriority.LOW;
     private Instant createdAt;
     private Instant updatedAt;
 

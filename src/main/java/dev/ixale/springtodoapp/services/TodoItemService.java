@@ -32,8 +32,18 @@ public class TodoItemService {
     public Optional<TodoItem> save(TodoItem todoItem) {
         if (todoItem.getId() == null) {
             todoItem.setCreatedAt(Instant.now());
+        } else {
+            todoItemRepository.findById(todoItem.getId()).ifPresentOrElse(
+                    (item) -> {
+                        todoItem.setCreatedAt(item.getCreatedAt());
+                    },
+                    () -> {
+                        todoItem.setCreatedAt(Instant.now());
+                    }
+            );
         }
         todoItem.setUpdatedAt(Instant.now());
+
         return Optional.of(this.todoItemRepository.save(todoItem));
     }
 

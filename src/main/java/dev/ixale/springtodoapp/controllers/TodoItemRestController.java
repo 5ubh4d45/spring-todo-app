@@ -4,6 +4,7 @@ import dev.ixale.springtodoapp.models.TaskPriority;
 import dev.ixale.springtodoapp.models.TaskStatus;
 import dev.ixale.springtodoapp.models.TodoItem;
 import dev.ixale.springtodoapp.services.TodoItemService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,12 +32,12 @@ public class TodoItemRestController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<TodoItem> save(@RequestBody TodoItem todoItem) {
+    public ResponseEntity<TodoItem> save(@Valid @RequestBody TodoItem todoItem) {
         return ResponseEntity.of(this.todoItemService.save(todoItem));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<TodoItem> update(@PathVariable Long id, @RequestBody TodoItem todoItem) {
+    public ResponseEntity<TodoItem> update(@PathVariable Long id, @Valid @RequestBody TodoItem todoItem) {
         todoItem.setId(id);
         return ResponseEntity.of(this.todoItemService.save(todoItem));
     }
