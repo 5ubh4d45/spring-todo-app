@@ -1,16 +1,12 @@
 package dev.ixale.springtodoapp.controllers;
 
-import dev.ixale.springtodoapp.models.TaskPriority;
-import dev.ixale.springtodoapp.models.TaskStatus;
 import dev.ixale.springtodoapp.models.TodoItem;
 import dev.ixale.springtodoapp.services.TodoItemService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.Instant;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/todo-items")
@@ -45,5 +41,11 @@ public class TodoItemRestController {
     @DeleteMapping("/{id}")
     public ResponseEntity<TodoItem> deleteById(@PathVariable Long id) {
         return ResponseEntity.of(this.todoItemService.deleteById(id));
+    }
+
+    @DeleteMapping("/delete-all")
+    public ResponseEntity<List<TodoItem>> deleteAll() {
+
+        return ResponseEntity.of(this.todoItemService.deleteAll());
     }
 }

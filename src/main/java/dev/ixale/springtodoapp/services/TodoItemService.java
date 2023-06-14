@@ -54,4 +54,12 @@ public class TodoItemService {
         this.todoItemRepository.deleteById(id);
         return todoItem;
     }
+
+    public Optional<List<TodoItem>> deleteAll() {
+        Optional<List<TodoItem>> todoItems = Optional.of(this.todoItemRepository.findAll());
+        if (todoItems.get().isEmpty()) return Optional.empty();
+
+        this.todoItemRepository.deleteAll();
+        return todoItems;
+    }
 }

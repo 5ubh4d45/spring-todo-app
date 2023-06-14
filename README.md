@@ -56,6 +56,10 @@ Thymeleaf endpoint is at `/`
 
 <img src="./media/screenshots/home-deleted-todos.png" alt="Delete Todo"/>
 
+### Delete all Todo Items
+- URL: `/todo/delete-all`
+- Description: Deletes all `todo items`.
+
 ## REST API Endpoints for Todo Items
 
 This is an overview of the REST endpoints available for managing todo items. These endpoints allow you to perform CRUD (Create, Read, Update, Delete) operations on todo items.
@@ -99,5 +103,11 @@ Base URL: `/api/v1/todo-items`
 - Path Variable:
     - `id` (Long): The ID of the todo item to be deleted.
 - Response: Returns the deleted `TodoItem` object.
+
+### Delete all todo items
+- URL: `/delete-all`
+- Method: DELETE
+- Description: Deletes all todo items.
+- Response: Returns a list of all deleted `TodoItem` objects.
 
 Note: The endpoints expect and return data in JSON format. Make sure to include appropriate headers and follow RESTful practices when making requests to these endpoints.
