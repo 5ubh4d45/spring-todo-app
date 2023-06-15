@@ -21,7 +21,7 @@ LABEL authors="ixale.dev"
 
 WORKDIR /app
 
-COPY --from=builder /app/build/libs/spring-todo-app.jar app.jar
+COPY --from=builder /app/build/libs/spring-todo-app-v0.1f.jar app.jar
 
 ARG PORT=8080
 
