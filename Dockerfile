@@ -15,7 +15,30 @@ COPY src src
 RUN gradle bootJar
 
 # Creates app runtime
-FROM eclipse-temurin:17-alpine
+FROM eclipse-temurin:17-alpine as runtimeJdk
+
+# required for strip-debug to work
+RUN apk add --no-cache binutils
+
+# Build small JRE image
+RUN $JAVA_HOME/bin/jlink \
+         --verbose \
+         --add-modules ALL-MODULE-PATH \
+         --strip-debug \
+         --no-man-pages \
+         --no-header-files \
+         --compress=2 \
+         --output /customjre
+
+# Create final image
+FROM alpine:latest
+
+# setting up jdk
+ENV JAVA_HOME=/jre
+ENV PATH="${JAVA_HOME}/bin:${PATH}"
+
+# copying JRE
+COPY --from=runtimeJdk /customjre $JAVA_HOME
 
 LABEL authors="ixale.dev"
 
